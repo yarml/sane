@@ -79,7 +79,6 @@ pub fn measure(
   }
 
   loop {
-    println!("{}", state.pc());
     let ins = &instructions[state.pc()];
 
     // Execute instruction

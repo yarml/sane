@@ -24,8 +24,8 @@ fn main() {
   let content = fs::read_to_string("input.asm").unwrap();
   let instructions = parse(&content);
   let (final_state, predictors) = measure(&instructions, &mut predictors);
-  println!("{:?}", final_state);
-
+  println!("{}", content);
+  println!("State after execution: {:?}", final_state);
   for (name, results) in predictors {
     println!("{}", name);
     for (pc, result) in results {
