@@ -101,14 +101,7 @@ pub fn measure(
       }
       Instruction::BranchGE(_, _, _) => {}
       Instruction::BranchNE(_, _, _) => {}
-      Instruction::Jump(label) => {
-        let new_loc = search_label(instructions, label);
-        if let Some(loc) = new_loc {
-          state.goto(loc);
-        } else {
-          panic!("Label not found");
-        }
-      }
+      Instruction::Jump(_) => {}
       Instruction::Label(_) => {}
       Instruction::Finish => {
         return (state, predictors_accuracy);
@@ -132,6 +125,11 @@ pub fn measure(
           state.reg_read(*rs1 as usize) != state.reg_read(*rs2 as usize),
           new_loc,
         ))
+      }
+      Instruction::Jump(label) => {
+        let new_loc =
+          search_label(instructions, label).expect("Label not found");
+        Some((true, new_loc))
       }
       _ => None,
     };
